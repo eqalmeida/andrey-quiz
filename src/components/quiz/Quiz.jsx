@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 const questions = [
   {
@@ -59,14 +59,17 @@ export default function Quiz() {
     }
   };
 
+  const currentQuestion = useMemo(() => questions[questionId], [questionId]);
+
   return (
     <div className="container">
       <h1>Quiz</h1>
+
       <h4 className="mt-3">
-        {questionId + 1}. {questions[questionId].title}
+        {questionId + 1}. {currentQuestion.title}
       </h4>
       <ul className="list-group mt-3">
-        {questions[questionId].answers.map((item, index) => (
+        {currentQuestion.answers.map((item, index) => (
           <li
             className={`list-group-item ${index === selected ? "active" : ""} ${
               chosen >= 0 ? "disabled" : ""
@@ -97,21 +100,21 @@ export default function Quiz() {
       </div>
 
       <div
-        hidden={chosen !== questions[questionId].rightIdx}
+        hidden={chosen !== currentQuestion.rightIdx}
         className="mt-4 alert alert-success"
         role="alert"
       >
         Parabéns, resposta correta!
       </div>
       <div
-        hidden={chosen < 0 || chosen === questions[questionId].rightIdx}
+        hidden={chosen < 0 || chosen === currentQuestion.rightIdx}
         className="mt-4 alert alert-danger"
         role="alert"
       >
         Você errou! A resposta correta seria:{" "}
         <b>
-          {letters[questions[questionId].rightIdx]}){" "}
-          {questions[questionId].answers[questions[questionId].rightIdx]}
+          {letters[currentQuestion.rightIdx]}){" "}
+          {currentQuestion.answers[currentQuestion.rightIdx]}
         </b>
       </div>
     </div>
