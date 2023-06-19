@@ -3,10 +3,17 @@ import Quiz from "./components/quiz/Quiz";
 
 function App() {
   return (
-    <div className="container">
-      <h1>Quiz</h1>
-      <Quiz></Quiz>
-    </div>
+    <>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container">
+          <span className="navbar-brand">Quiz</span>
+        </div>
+      </nav>
+
+      <div className="container">
+        <Quiz></Quiz>
+      </div>
+    </>
   );
 }
 

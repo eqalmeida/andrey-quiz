@@ -135,7 +135,7 @@ export default function Quiz() {
           hidden={chosen < 0}
           className="btn btn-primary mt-3"
         >
-          Próxima
+          Avançar
         </button>
       </div>
     </>
