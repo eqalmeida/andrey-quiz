@@ -21,22 +21,22 @@ const questions = [
     title:
       "Qual é uma fonte de energia renovável obtida a partir da queima de biomassa?",
     answers: [
+      "Bioenergia",
       "Energia hidrelétrica",
       "Energia nuclear",
       "Energia geotérmica",
-      "Bioenergia",
     ],
-    rightIdx: 3,
+    rightIdx: 0,
   },
   {
     title: "Qual é uma forma comum de aproveitamento da energia hidrelétrica?",
     answers: [
       "Turbinas eólicas",
       "Painéis solares",
-      "Geradores a diesel",
       "Barragens e usinas hidrelétricas",
+      "Geradores a diesel",
     ],
-    rightIdx: 3,
+    rightIdx: 2,
   },
 ];
 
