@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Grade from "../grade/Grade";
 
 const questions = [
   {
@@ -45,32 +46,50 @@ export default function Quiz() {
   const [questionId, setQuestionId] = useState(0);
   const [selected, setSelected] = useState(-1);
   const [chosen, setChosen] = useState(-1);
+  const [points, setPoints] = useState(0);
+  const [showGrade, setShowGrade] = useState(false);
 
   const choose = () => {
     setChosen(selected);
   };
   const next = () => {
+    if (chosen === currentQuestion.rightIdx) {
+      setPoints(points + 1);
+    }
     setChosen(-1);
     setSelected(-1);
     if (questionId + 1 < questions.length) {
       setQuestionId(questionId + 1);
     } else {
-      setQuestionId(0);
+      setShowGrade(true);
     }
+  };
+
+  const resetTest = () => {
+    setShowGrade(false);
+    setPoints(0);
+    setQuestionId(0);
+    setChosen(-1);
+    setSelected(-1);
   };
 
   const currentQuestion = useMemo(() => questions[questionId], [questionId]);
 
-  return (
-    <div className="container">
-      <h1>Quiz</h1>
+  if (showGrade) {
+    return (
+      <Grade points={points} total={questions.length} resetClick={resetTest} />
+    );
+  }
 
+  return (
+    <>
       <h4 className="mt-3">
         {questionId + 1}. {currentQuestion.title}
       </h4>
       <ul className="list-group mt-3">
         {currentQuestion.answers.map((item, index) => (
           <li
+            style={{ cursor: "pointer" }}
             className={`list-group-item ${index === selected ? "active" : ""} ${
               chosen >= 0 ? "disabled" : ""
             }`}
@@ -82,22 +101,6 @@ export default function Quiz() {
           </li>
         ))}
       </ul>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <button
-          onClick={choose}
-          disabled={selected < 0 || chosen > -1}
-          className="btn btn-primary mt-3"
-        >
-          Verificar resposta
-        </button>
-        <button
-          onClick={next}
-          hidden={chosen < 0}
-          className="btn btn-primary mt-3"
-        >
-          Próxima
-        </button>
-      </div>
 
       <div
         hidden={chosen !== currentQuestion.rightIdx}
@@ -117,6 +120,24 @@ export default function Quiz() {
           {currentQuestion.answers[currentQuestion.rightIdx]}
         </b>
       </div>
-    </div>
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <button
+          onClick={choose}
+          hidden={chosen > -1}
+          disabled={selected < 0 || chosen > -1}
+          className="btn btn-primary mt-3"
+        >
+          Verificar resposta
+        </button>
+        <button
+          onClick={next}
+          hidden={chosen < 0}
+          className="btn btn-primary mt-3"
+        >
+          Próxima
+        </button>
+      </div>
+    </>
   );
 }
