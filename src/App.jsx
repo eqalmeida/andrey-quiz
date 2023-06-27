@@ -4,9 +4,9 @@ import Quiz from "./components/quiz/Quiz";
 function App() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar bg-dark navbar-expand-lg " data-bs-theme="dark">
         <div className="container">
-          <span className="navbar-brand">Quiz</span>
+          <span className="navbar-brand">Quiz - Feira de Ciências</span>
         </div>
       </nav>
 
